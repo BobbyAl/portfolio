@@ -1,6 +1,6 @@
-import ShinyText from "../libraries/ShinyText"
 import { Command, AtSign } from "lucide-react"
 import { FaGithub, FaLinkedin, FaMailBulk } from "react-icons/fa";
+import ScrambledText from "../libraries/ScrambledText";
 
 
 export default function NavBar () {
@@ -8,22 +8,20 @@ export default function NavBar () {
         <div className="flex w-full items-center justify-between gap-12 px-16 py-4">
             <div className="flex items-center gap-2">
                 <Command />
-                <ShinyText
-                    text="Bobby Flennoy"
-                    speed={5}
-                    color="#282828"
-                    shineColor="#ffffff"
-                    spread={120}
-                    className="text-lg font-medium tracking-tight"
-                />
+                <ScrambledText
+                    radius={15}
+                    duration={2}
+                    speed={2}
+                    scrambleChars=".:" 
+                    className="font-medium text-xl"
+                >
+                    Bobby Flennoy
+                </ScrambledText>
             </div>
             <div>
                 <ul className="flex gap-12 text-md text-black/75">
                     <li><a href="#">About</a></li>
-                    <li><a href="#">Skills</a></li>
                     <li><a href="#">Education</a></li>
-                    <li><a href="#">Experience</a></li>
-                    <li><a href="#">Projects</a></li>
                     <li><a href="#">Extracurriculars</a></li>
                 </ul>
             </div>
