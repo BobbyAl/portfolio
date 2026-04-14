@@ -17,6 +17,11 @@ export default function AboutMe () {
             <Card />
             <section >
                 <div className="flex flex-col gap-4">
+                    <div className="max-w-xl h-12 relative overflow-hidden">
+                            <LogoLoop
+                                logos={techLogos}
+                            />
+                    </div>
                     <div>
                         <h1 className="text-6xl">Transforming Your Ideas into Reality</h1>
                         <p className="text-2xl">Passionate about creating intuitive and engaging user experiences. Specialize in transforming ideas into beautifully crafted products.</p>
