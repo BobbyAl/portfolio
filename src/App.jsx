@@ -1,8 +1,9 @@
-import PixelBlast from "./components/libraries/PixelBlast";
+import ParticleField from "./components/libraries/ParticleField";
 import NavBar from "./components/ui/NavBar";
 import Footer from "./components/ui/Footer";
 import Hero from "./pages/Hero";
 import AboutMe from "./pages/AboutMe";
+import Resume from "./pages/Resume";
 
 
 
@@ -11,13 +12,7 @@ function App() {
   return (
     <div className="relative min-h-screen">
       <div className="fixed inset-0 -z-10">
-        <PixelBlast 
-          color="#148EFF"
-          patternScale={2}
-          patternDensity={1}
-          enableRipples
-          transparent
-        />
+        <ParticleField />
       </div>
       <div className="relative z-10 flex flex-col min-h-screen">
         <NavBar />
@@ -28,6 +23,9 @@ function App() {
           </section>
           <section className="min-h-screen flex items-center justify-center">
             <AboutMe />
+          </section>
+          <section className="min-h-screen flex items-center justify-center">
+            <Resume />
           </section>
         </main>
 
