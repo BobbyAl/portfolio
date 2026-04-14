@@ -99,6 +99,20 @@
     --ring: oklch(0.556 0 0);
 }
 
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+@keyframes bob {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-18px); }
+}
+
+@theme inline {
+    --animate-marquee: marquee 30s linear infinite;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

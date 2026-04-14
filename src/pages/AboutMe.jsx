@@ -1,64 +1,41 @@
-import { ArrowBigRightIcon } from "lucide-react";
-import Card from "../components/ui/Card";
-import LogoLoop from "../components/libraries/LogoLoop";
-import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si';
+import Marquee from "../components/ui/Marquee";
+import ProfileImage from "../assets/profile-no-bg.png"
+
+import { Sparkles } from "lucide-react";
 
 
-const techLogos = [
-  { node: <SiReact />, title: "React", href: "https://react.dev" },
-  { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
-  { node: <SiTypescript />, title: "TypeScript", href: "https://www.typescriptlang.org" },
-  { node: <SiTailwindcss />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
-];
 
 export default function AboutMe () {
     return (
-       <div className="flex w-full max-w-5xl">
-            <Card />
-            <section >
-                <div className="flex flex-col gap-4">
-                    <div className="max-w-xl h-12 relative overflow-hidden">
-                            <LogoLoop
-                                logos={techLogos}
-                            />
-                    </div>
-                    <div>
-                        <h1 className="text-6xl">Transforming Your Ideas into Reality</h1>
-                        <p className="text-2xl">Passionate about creating intuitive and engaging user experiences. Specialize in transforming ideas into beautifully crafted products.</p>
-                    </div>
-                    <div>
-                        <div className="flex gap-2">
-                            <div className="flex flex-col max-w-3xs">
-                                <span className="text-6xl font-bold">12+</span>
-                                <span className="text-2xl uppercase">Years of Experience</span>
-                            </div>
-                            <div className="flex flex-col max-w-3xs">
-                                <span className="text-6xl font-bold">46+</span>
-                                <span className="text-2xl uppercase">Projects Completed</span>
-                            </div>
-                            <div className="flex flex-col max-w-3xs">
-                                <span className="text-6xl font-bold">20+</span>
-                                <span className="text-2xl uppercase">Worldwide Clients</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                        <button className="bg-[#148EFF] text-white px-16 py-3 rounded-xl">Let's Talk</button>
-                        <button className="flex ">
-                            <span>My Work</span>
-                            <ArrowBigRightIcon />
+        
+        <div className="flex flex-col w-full gap-32">
+            <Marquee />
+            <div className="flex flex-col w-full max-w-7xl mx-auto gap-64">
+                <h1 className="font-semibold text-6xl max-w-3xl flex-1">
+                    My name is Bobby Flennoy. I am a CS/Neuro major @ The University of Texas at Arlington.
+                </h1>
+                <div className="flex flex-row items-center justify-between">
+                    <div className="flex flex-col gap-4">
+                        <h2 className="text-5xl font-medium max-w-xl">
+                            Human-Centered AI
+                        </h2>
+                        <p className="text-xl tracking-wide text-gray-600 max-w-xl">
+                            Currently a senior at UTA, I have an interest in HCAI (Human-Centered AI) and Affective Computing. 
+                            My work focuses on how AI can be better aligned with human cognition to solve real-world problems.
+                        </p>
+                        <button className="flex items-center justify-center gap-2 bg-gray-300/10 border border-black px-5 py-3 rounded-full max-w-3xs">
+                            <Sparkles size={16}/>
+                            <span className="font-semibold">Explore AI Projects</span>
                         </button>
                     </div>
-                    <div>
-                        <span>Tech stack used throughout projects</span>
-                        <div className="max-w-xl h-12 relative overflow-hidden">
-                            <LogoLoop
-                                logos={techLogos}
-                            />
-                        </div>
+                    <div className="border border-black bg-gray-300/10 backdrop-blur-sm rounded-4xl overflow-hidden w-lg shrink-0" style={{ aspectRatio: '3/4' }}>
+                        <img src={ProfileImage} className="w-full h-full object-cover object-top rounded-sm" />
                     </div>
                 </div>
-            </section>
+                
+
+            </div>
+            
         </div>
     );
 }
