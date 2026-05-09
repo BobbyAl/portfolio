@@ -195,7 +195,7 @@ export default function ParticleField() {
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, Math.max(0.3, bellSize), 0, Math.PI * 2);
                 ctx.globalAlpha = Math.min(1, p.alpha);
-                ctx.fillStyle = "#148EFF";
+                ctx.fillStyle = "#FFFFFF";
                 ctx.fill();
             }
 

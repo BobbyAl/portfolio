@@ -1,0 +1,42 @@
+{
+  "about": {
+    "route": "about",
+    "summary": "Bobby Flennoy is a CS and Neuroscience student at UT Arlington (B.S. CS + Neuroscience minor, expected Aug 2026). He works at the intersection of code and cognition, building AI systems that adapt to humans rather than forcing humans to adapt to the machine.",
+    "keywords": ["who", "about", "background", "neuroscience", "human-centered", "philosophy", "goals", "identity", "human-centered AI"]
+  },
+  "experience": {
+    "route": "experience",
+    "summary": "Bobby has three main work experiences: (1) AI Research & Full-Stack Developer at Pearl Discovery (nonprofit, Mar 2026–Present) — built a Next.js platform from scratch, fine-tuned a small language model that cut API costs by 90%, used Supabase/PostgreSQL/Vercel. (2) UX Research Intern at CBRE (Jun–Aug 2025) — built AI-driven feature prioritization workflow for 500+ users, ran live-edit prototype sessions during user interviews using Figma and Figma Make, used MaxDiff analysis and Likert surveys. (3) HCI Researcher at Hybrd Atelier Lab, UT Arlington (May–Aug 2024) — investigated GenAI's effect on creativity in 3D fabrication, used card sorting, ethnography, ontology design, GPT-4 API.",
+    "keywords": ["experience", "work", "job", "internship", "CBRE", "Pearl", "research", "full-stack", "developer", "UX research", "HCI", "career", "professional"]
+  },
+  "ux_process": {
+    "route": "experience",
+    "summary": "Bobby's UX process is hands-on and AI-augmented: he runs user interviews, builds functional prototypes in real-time during sessions so users can 'live-edit' designs with him, uses MaxDiff analysis to prioritize features based on real friction points, and applies journey mapping and Likert surveys. He closes the insight-to-code gap by using AI to accelerate from research findings to working prototypes. Tools: Figma, Figma Make, usability testing, rapid prototyping.",
+    "keywords": ["UX process", "design process", "user research", "prototyping", "user interviews", "Figma", "usability testing", "journey mapping", "MaxDiff", "double diamond", "design thinking", "research methods", "how do you design", "workflow"]
+  },
+  "skills": {
+    "route": "experience",
+    "summary": "Technical skills: React, Next.js, TypeScript, JavaScript, TailwindCSS, PostgreSQL, Supabase, Vercel, Claude API, GPT-4 API, SLM fine-tuning, sentiment analysis. UX/Research skills: Figma, Figma Make, user interviews, usability testing, rapid prototyping, journey mapping, MaxDiff analysis, Likert surveys, card sorting, ethnography, ontology design, wireframing.",
+    "keywords": ["skills", "tech stack", "technologies", "tools", "languages", "frameworks", "React", "Next.js", "TypeScript", "Figma", "AI", "machine learning", "what do you know", "what can you do"]
+  },
+  "education": {
+    "route": "education",
+    "summary": "Bobby studies at the University of Texas at Arlington. B.S. Computer Science (Algorithms & Data Structures, AI, OOP, Databases, HCI, Software Project Management) with a Neuroscience minor (Cognitive Processes, Brain & Behavior, Behavioral Genetics, Intro to Psychology). Expected graduation August 2026.",
+    "keywords": ["education", "school", "university", "UTA", "UT Arlington", "degree", "major", "neuroscience", "computer science", "courses", "GPA", "student"]
+  },
+  "extracurriculars": {
+    "route": "extracurriculars",
+    "summary": "Bobby is President & Student Advisor of ACM at UTA (200+ members, 3x membership growth). He was Creative Director of HackUTA (600+ attendees, led creative team of 8). He was an invited speaker at WeHacks (300+ audience, talked on AI-native design). He won 1st place at HackUTD (400+ participants, 80+ teams, built AI product in 24 hours).",
+    "keywords": ["extracurriculars", "activities", "clubs", "ACM", "hackathon", "HackUTA", "HackUTD", "WeHacks", "leadership", "president", "creative director", "speaker", "awards", "achievements"]
+  },
+  "projects": {
+    "route": "chooser",
+    "summary": "Bobby's project work is split into software/engineering projects and UX/design projects. Navigate to the chooser to explore both tracks.",
+    "keywords": ["projects", "portfolio", "work", "case studies", "what have you built", "show me your work", "dev projects", "design projects"]
+  },
+  "contact": {
+    "route": "footer",
+    "summary": "Bobby's contact info and social links are in the footer of the site.",
+    "keywords": ["contact", "connect", "email", "LinkedIn", "GitHub", "links", "hire", "reach out", "get in touch"]
+  }
+}
