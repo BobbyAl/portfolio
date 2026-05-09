@@ -76,6 +76,16 @@ export default function Hero() {
                 throw new Error("API route not found. Run 'vercel dev'.");
             }
 
+            if (res.status === 429) {
+                setMessages(prev => [...prev, {
+                    query,
+                    answer: "You've reached the limit for AI queries. Feel free to explore the site manually!",
+                    route: null,
+                }]);
+                setIsThinking(false);
+                return;
+            }
+
             if (!res.ok) {
                 const err = await res.json();
                 throw new Error(err.error || "API Error");
@@ -121,7 +131,7 @@ export default function Hero() {
                     pauseDuration={9999}
                     showCursor
                     cursorCharacter="|"
-                    className="text-8xl font-semibold"
+                    className="text-5xl md:text-8xl font-semibold"
                 />
             </div>
         );
@@ -145,7 +155,7 @@ export default function Hero() {
                     pauseDuration={1500}
                     showCursor
                     cursorCharacter="|"
-                    className="text-5xl font-bold tracking-tight text-white text-center"
+                    className="text-3xl md:text-5xl font-bold tracking-tight text-white text-center"
                 />
             </div>
 

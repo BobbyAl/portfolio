@@ -26,7 +26,7 @@ function MethodTag({ label }) {
 function ImpactStat({ value, label }) {
     return (
         <div className="flex flex-col gap-1">
-            <span className="text-3xl font-bold tracking-tight text-white/90">{value}</span>
+            <span className="text-2xl md:text-3xl font-bold tracking-tight text-white/90">{value}</span>
             <span className="text-xs font-semibold text-white/40 uppercase tracking-widest mt-1">{label}</span>
         </div>
     );
@@ -70,7 +70,7 @@ function CaseStudy({ index, tag, title, tagline, methods, stats, problem, thinki
         <div className="flex flex-col border border-white/10 shadow-2xl rounded-3xl bg-[#111111]/80 backdrop-blur-xl overflow-hidden transition-all duration-300 hover:border-white/20 group">
 
             {/* Header row — always visible, skimmable */}
-            <div className="flex flex-col gap-6 p-8 pb-6">
+            <div className="flex flex-col gap-6 p-5 md:p-8 pb-6">
                 <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div className="flex flex-col gap-2">
                         <div className="flex items-center gap-3">
@@ -213,7 +213,7 @@ const CASE_STUDIES = [
 
 export default function UXPage() {
     return (
-        <div className="flex flex-col w-full max-w-6xl mx-auto px-6 py-32 gap-20">
+        <div className="flex flex-col w-full max-w-6xl mx-auto px-4 md:px-6 py-20 md:py-32 gap-12 md:gap-20">
 
             {/* Page header */}
             <div className="flex flex-col gap-4">

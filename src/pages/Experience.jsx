@@ -21,9 +21,9 @@ function JobCard({ job }) {
             </div>
             <div className="flex flex-col w-full lg:w-2/3 gap-6">
                 <div className="flex flex-col max-w-xl items-start gap-4">
-                    <span className="text-2xl font-semibold text-left max-w-md self-start text-white/90">{job.title}</span>
+                    <span className="text-xl md:text-2xl font-semibold text-left max-w-md self-start text-white/90">{job.title}</span>
                     {job.bullets.map((b, i) => (
-                        <div key={i} className="flex gap-3 items-start bg-white/5 hover:bg-white/10 transition-colors shadow-lg border border-white/10 rounded-2xl px-6 py-5 w-full">
+                        <div key={i} className="flex gap-3 items-start bg-white/5 hover:bg-white/10 transition-colors shadow-lg border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-5 w-full">
                             <span className="text-white/70 leading-relaxed font-light text-base">{b}</span>
                         </div>
                     ))}
@@ -127,7 +127,7 @@ export default function Experience() {
     ]
 
     return (
-        <div className="flex flex-col w-full max-w-6xl gap-20 py-32 px-6 mx-auto">
+        <div className="flex flex-col w-full max-w-6xl gap-16 py-20 md:py-32 px-6 mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white">Experience</h1>
             <div className="relative flex flex-col gap-24 lg:pl-8">
                 {/* Timeline vertical line */}

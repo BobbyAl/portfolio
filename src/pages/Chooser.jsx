@@ -209,7 +209,7 @@ export default function Chooser() {
                         onMouseEnter={() => setMode("dev")}
                         onMouseLeave={() => setMode(null)}
                         onClick={() => navigate("/dev")}
-                        className={`flex items-center gap-3 px-8 py-4 rounded-full border text-sm font-bold tracking-wide transition-all duration-300 cursor-pointer
+                        className={`flex items-center gap-3 px-5 py-3 md:px-8 md:py-4 rounded-full border text-sm font-bold tracking-wide transition-all duration-300 cursor-pointer
                             ${active === "dev"
                                 ? "bg-white text-black border-white shadow-[0_0_30px_rgba(255,255,255,0.3)] scale-105"
                                 : "bg-white/5 text-white/80 border-white/20 hover:border-white/40 hover:bg-white/10 backdrop-blur-md"
@@ -222,7 +222,7 @@ export default function Chooser() {
                         onMouseEnter={() => setMode("ux")}
                         onMouseLeave={() => setMode(null)}
                         onClick={() => navigate("/ux")}
-                        className={`flex items-center gap-3 px-8 py-4 rounded-full border text-sm font-bold tracking-wide transition-all duration-300 cursor-pointer
+                        className={`flex items-center gap-3 px-5 py-3 md:px-8 md:py-4 rounded-full border text-sm font-bold tracking-wide transition-all duration-300 cursor-pointer
                             ${active === "ux"
                                 ? "bg-white text-black border-white shadow-[0_0_30px_rgba(255,255,255,0.3)] scale-105"
                                 : "bg-white/5 text-white/80 border-white/20 hover:border-white/40 hover:bg-white/10 backdrop-blur-md"

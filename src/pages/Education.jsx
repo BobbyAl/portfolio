@@ -56,7 +56,7 @@ function Block({ title, subtitle, icon, items }) {
 
 export default function Education() {
     return (
-        <div className="flex flex-col w-full max-w-6xl items-center gap-20 py-32 px-6 mx-auto">
+        <div className="flex flex-col w-full max-w-6xl items-center gap-12 py-20 md:py-32 px-6 mx-auto">
             <div className="flex flex-col items-center gap-1">
                 <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-2">Education</h1>
                 <h2 className="text-xl md:text-2xl font-medium text-white/70">University of Texas at Arlington</h2>

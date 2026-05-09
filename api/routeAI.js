@@ -1,4 +1,10 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { Redis } from "@upstash/redis";
+
+const redis = new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
 import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
@@ -17,6 +23,16 @@ function buildContextBlock() {
         .join("\n\n");
 }
 
+const RATE_LIMIT = 3;
+
+function getIP(req) {
+    return (
+        req.headers["x-forwarded-for"]?.split(",")[0].trim() ||
+        req.socket?.remoteAddress ||
+        "unknown"
+    );
+}
+
 export default async function handler(req, res) {
     if (req.method !== "POST") {
         return res.status(405).json({ error: "Method not allowed" });
@@ -26,6 +42,16 @@ export default async function handler(req, res) {
     if (!query) {
         return res.status(400).json({ error: "Missing query" });
     }
+
+    const ip = getIP(req);
+    const key = `ratelimit:${ip}`;
+    const count = (await redis.get(key)) || 0;
+
+    if (count >= RATE_LIMIT) {
+        return res.status(429).json({ error: "Rate limit reached", rateLimited: true });
+    }
+
+    await redis.set(key, count + 1, { ex: 60 * 60 * 24 }); // resets after 24h
 
     const contextBlock = buildContextBlock();
 

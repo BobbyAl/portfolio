@@ -55,14 +55,14 @@ export default function Extracurriculars() {
     const tab = tabs.find(t => t.id === active);
 
     return (
-        <div className="flex flex-col w-full gap-16 py-32 max-w-7xl mx-auto">
+        <div className="flex flex-col w-full gap-12 py-20 md:py-32 max-w-7xl mx-auto">
             {/* Header */}
-            <div className="px-[5vw]">
+            <div className="px-4 md:px-[5vw]">
                 <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white">Extracurriculars</h1>
             </div>
 
             {/* Tabs */}
-            <div className="flex flex-wrap gap-3 px-[5vw]">
+            <div className="flex flex-wrap gap-3 px-4 md:px-[5vw]">
                 {tabs.map((t) => (
                     <button
                         key={t.id}
@@ -86,7 +86,7 @@ export default function Extracurriculars() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.25, ease: "easeOut", delay: 0.05 }}
-                    className="flex flex-col gap-6 px-[5vw]"
+                    className="flex flex-col gap-6 px-4 md:px-[5vw]"
                 >
                     <div className="flex flex-col gap-2">
                         <div className="flex items-center gap-4 flex-wrap">

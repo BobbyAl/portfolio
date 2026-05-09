@@ -28,11 +28,11 @@ const icons = [
 
 function IconPill({ icon: Icon, label }) {
     return (
-        <div className="flex flex-col items-center gap-2 mx-4">
-            <div className="w-14 h-14 rounded-full bg-white/5 border border-white/10 text-white flex items-center justify-center">
-                <Icon size={22} />
+        <div className="flex flex-col items-center gap-2 mx-3 md:mx-4">
+            <div className="w-11 h-11 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 text-white flex items-center justify-center">
+                <Icon size={18} />
             </div>
-            <span className="text-xs font-medium text-white/40">{label}</span>
+            <span className="text-[10px] md:text-xs font-medium text-white/40">{label}</span>
         </div>
     );
 }
