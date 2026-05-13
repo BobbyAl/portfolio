@@ -106,7 +106,7 @@
 
 @keyframes bob {
     0%, 100% { transform: translateY(0px); }
-    50%       { transform: translateY(-18px); }
+    50%       { transform: translateY(-6px); }
 }
 
 @theme inline {
