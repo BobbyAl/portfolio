@@ -138,76 +138,113 @@ const CASE_STUDIES = [
     {
         index: 1,
         tag: "Enterprise UX",
-        title: "CBRE: Optimizing Facility Management",
-        tagline: "Replaced gut-driven roadmaps with a data-backed prioritization framework for over 500 enterprise users.",
+        title: "CBRE: Grounding a Roadmap in Real User Pain",
+        tagline: "Replaced PM intuition with a multi-method research framework that put actual user pain points in front of the VP of Digital & Technology.",
         icon: <Users size={40} strokeWidth={1} />,
-        methods: ["Heuristic Evaluation", "MaxDiff Survey", "Generative Prototyping", "Figma Make", "Data Synthesis"],
+        methods: ["Heuristic Evaluation", "MaxDiff Survey", "VADER Sentiment Analysis", "Data Synthesis", "Usability Testing"],
         stats: [
-            { value: "500+", label: "Survey Respondents" },
-            { value: "4", label: "Research Methods" },
-            { value: "1 Deck", label: "Delivered to Leadership" },
+            { value: "500+", label: "Users Surveyed" },
+            { value: "40+", label: "Usability Issues Surfaced" },
+            { value: "VP-Level", label: "Stakeholder Presentation" },
         ],
         problem:
-            "Internal digital platforms had really fragmented usage. Feature prioritization was driven by PM intuition instead of actual user pain points, creating a big gap between what was being built and what users actually needed.",
+            "Feature prioritization on the facility management platform was driven by PM intuition rather than user evidence. There was no structured way to know which problems were actually hurting users the most — or to make a case for fixing them over shipping new features.",
         thinking:
-            "I needed to validate these gut feelings with actual data. By cross-referencing a heuristic audit with months of survey data, I isolated the usability issues that were both widely reported and impactful to the business.",
+            "A single method wouldn't be convincing enough on its own. I needed a confirmation loop: find the pain points through a structured audit, then check whether real users had been reporting the same things for months. If the heuristic findings matched the historical data, the argument for fixing them becomes hard to dismiss.",
         steps: [
-            { title: "System Audit", detail: "Performed a heuristic evaluation to map out the system and find the main friction points." },
-            { title: "Data Synthesis", detail: "Cross-referenced those audit findings with old survey data to find recurring themes." },
-            { title: "MaxDiff Analysis", detail: "Sent a MaxDiff survey to over 500 users to get hard numbers on which interactions were the most painful." },
-            { title: "Generative Prototyping", detail: "Ran usability tests using Figma Make. Participants suggested UI changes in real-time, I updated the design instantly, and we tracked how their perception shifted." },
+            {
+                title: "Heuristic Evaluation",
+                detail: "Audited the platform against Nielsen's 10 heuristics, surfacing 40+ issues organized into 11 tags. Built an Airtable template to document and triage findings so the team could run future evaluations without starting from scratch. Collaborated with design to label each issue as addressed, in progress, or unknown.",
+            },
+            {
+                title: "Historical Data Synthesis",
+                detail: "Used Python (Pandas + VADER sentiment analysis) to cross-reference HE findings against months of historical open-ended survey responses. Found that the issues I'd flagged — particularly search & filtering and information-dense table views — were the same things users had been reporting negatively for months. That overlap is what made the usability pillars credible, not just my opinion.",
+            },
+            {
+                title: "MaxDiff Survey",
+                detail: "Designed the survey from scratch using Alchemer, reading academic papers to ensure the question structure would produce statistically valid results at our sample size. Recruited 500+ internal facility managers and coordinators from an internal contact database and drafted the recruitment emails myself.",
+            },
+            {
+                title: "Live Prototype Validation",
+                detail: "Built functional Figma prototypes and ran live usability sessions, testing proposed fixes with real users and validating changes within the same research cycle — no need for a separate follow-up study.",
+            },
         ],
         impact:
-            "Delivered a data-backed presentation to management that gave everyone confidence in the roadmap. We directly addressed the worst friction points and shifted the team from guessing to actually knowing what to build.",
+            "Delivered a research-backed presentation to the Director of Product and VP of Digital & Technology that gave the team a clear, evidence-based view of what to build next. The Q3/Q4 engineering roadmap was directly informed by the MaxDiff ranking. The team moved from prioritizing by instinct to prioritizing by data.",
     },
     {
         index: 2,
         tag: "EdTech · AI Systems",
         title: "Pearl Discovery: Closing the 60-Day Teacher Gap",
-        tagline: "Designed a system that gets student behavioral insights to educators on day one of the semester.",
+        tagline: "Discovery research uncovered how teachers really learn about students — and the finding reshaped the product roadmap.",
         icon: <FlaskConical size={40} strokeWidth={1} />,
-        methods: ["Semi-Structured Interviews", "User Recruitment", "HITL Design", "Mental Model Mapping", "Cognitive Load Testing"],
+        methods: ["Discovery Interviews", "Mental Model Mapping", "Affinity Mapping", "Dashboard Design", "HITL Interface Design"],
         stats: [
-            { value: "7+", label: "Participants Interviewed" },
-            { value: "20%", label: "Potential Academic Year Recovered" },
-            { value: "60 days", label: "Learning Curve Eliminated" },
+            { value: "7", label: "Participants Interviewed" },
+            { value: "3", label: "User Types" },
+            { value: "60-Day", label: "Gap Being Addressed" },
         ],
         problem:
-            "Teachers and coaches face a 60-day gap at the start of every semester where they don't know their students' behavior traits or learning styles. They lose two months of potential growth just trying to figure everyone out.",
+            "Teachers and coaches typically spend the first 60 days of a semester just figuring out who their students are — their behavioral tendencies, learning styles, and how they respond to different situations. That's two months of guesswork before any informed coaching can happen. The platform aims to collapse that gap by surfacing behavioral insights early.",
         thinking:
-            "If we could capture the 'student outlook' early and give it to the teacher on day one, we could eliminate that learning curve. My goal was to figure out how teachers categorize student behavior so we could build a system that actually speaks their language.",
+            "Before designing anything, I needed to understand how teachers actually build that understanding — not the official answer, but the real one. If we built a tool around the wrong mental model, it wouldn't matter how good the AI was. Teachers wouldn't trust it or use it.",
         steps: [
-            { title: "User Recruitment", detail: "Recruited 7 teachers and coaches for deep-dive qualitative interviews." },
-            { title: "Semi-Structured Interviews", detail: "Mapped out how educators currently learn about their students and where that information pipeline usually breaks down." },
-            { title: "HITL Interface Design", detail: "Built an interface to test the best way to present behavioral insights so it was easy to read and actually trusted by the teachers." },
+            {
+                title: "Discovery Interviews",
+                detail: "Recruited and interviewed 7 participants across three user types: teachers, coaches, and parents. The goal was to map how each group actually learns about a student's behavioral patterns — not how they're supposed to, but how it really happens.",
+            },
+            {
+                title: "Key Finding",
+                detail: "The moment a teacher genuinely understands a student is almost never the result of a process. It's situational — it usually surfaces during peer collaboration, when students are working alongside others and their real behavioral qualities come out naturally. That's not something any existing tool was designed around.",
+            },
+            {
+                title: "Roadmap Impact",
+                detail: "That finding directly shaped the product. We added a planned feature to analyze how students' behavioral pillar profiles interact with each other in group settings — because that's when the signal actually appears.",
+            },
+            {
+                title: "Dashboard Design",
+                detail: "Used interview insights to design the coaching interface. Teachers wanted two things: an at-a-glance profile for each individual student, and a picture of how the whole class is trending. Both levels of view came directly from what people said in interviews, not from assumptions.",
+            },
         ],
         impact:
-            "Designed a tool that gives behavioral insights to teachers right at the start of the semester. This potentially reclaims 20% of the academic year for actual teaching and creates a much more responsive classroom from day one.",
+            "The discovery research changed what we're building, not just how we're presenting it. A feature that didn't exist before the interviews — peer interaction analysis — is now on the roadmap because of a finding about how behavioral understanding actually works in practice. The platform is currently in development, with coach usability testing planned for the next phase.",
     },
     {
         index: 3,
         tag: "HCI Research · AI Tooling",
         title: "AI-Augmented Digital Fabrication",
-        tagline: "Built a domain-specific ontology and React prototype that outperformed generic LLM prompts for expert fabrication workflows.",
+        tagline: "Built a domain-specific AI assistant grounded in expert knowledge — and tested whether that grounding actually changed how much users trusted it.",
         icon: <Cpu size={40} strokeWidth={1} />,
-        methods: ["Ethnographic Research", "Card Sorting", "Ontology Construction", "React Prototyping", "Expert Usability Testing"],
+        methods: ["Contextual Inquiry", "Physical Card Sorting", "Taxonomy Construction", "React Prototyping", "Likert Trust Survey"],
         stats: [
-            { value: "1 Ontology", label: "Formal Knowledge Structure Built" },
-            { value: "FabLab", label: "Field Research Setting" },
-            { value: "↑ Trust", label: "vs. Generic AI Prompts" },
+            { value: "5", label: "Domain Experts" },
+            { value: "2", label: "AI Systems Compared" },
+            { value: "↑ Trust", label: "Directional Finding" },
         ],
         problem:
-            "Most AI tools are too broad. They don't understand the mechanical constraints and expert strategies needed for things like laser cutting. Generic prompts just produce generic, unusable output for actual experts.",
+            "Generic AI tools don't understand the physical constraints and expert strategies that come with something like laser cutting. They produce plausible-sounding output that doesn't hold up when an actual expert tries to use it — which means the tool gets dismissed, not adopted.",
         thinking:
-            "To build a better tool, I had to give it a better brain. A structured knowledge ontology based on expert behavior gives the system the vocabulary it needs to reason about fabrication strategies, instead of just pattern-matching general text.",
+            "The output quality of an AI system is only as good as the knowledge it's grounded in. If I could encode how actual domain experts think about fabrication strategies — their vocabulary, their hierarchy of decisions — the system would be able to reason within those constraints instead of pattern-matching from general text.",
         steps: [
-            { title: "Field Research", detail: "Conducted interviews and lab observations at an active FabLab with real digital fabrication experts." },
-            { title: "Card Sorting", detail: "Ran card-sorting exercises to organize these expert workflows into a structured hierarchy." },
-            { title: "Ontology Construction", detail: "Used the card-sort results to build a formal ontology that maps out viable laser-cutting strategies and their physical constraints." },
-            { title: "AI Prototype", detail: "Built a React-based prototype using the ontology as its knowledge backbone. It acted as a brainstorming partner that gave technically accurate and trustworthy suggestions." },
+            {
+                title: "Contextual Inquiry",
+                detail: "Visited an active fabrication lab to interview and observe 5 digital fabrication experts in their actual working environment. The goal was to understand how they think about laser-cutting strategies, not how they'd describe them in a vacuum.",
+            },
+            {
+                title: "Physical Card Sorting",
+                detail: "Ran card sorting exercises using physical printed cards — a deliberate methodological choice. These are hands-first people who work in a fabrication lab every day. A screen-based tool would have felt foreign to how they actually think. Designed and printed the cards, brought them to the lab, and had participants build the hierarchy by hand. Piloted the exercise with fellow researchers using Optimal Workshop before committing to the physical format.",
+            },
+            {
+                title: "Taxonomy Construction",
+                detail: "Used the physical sort results to build a structured taxonomy of laser-cutting strategies — mapping the relationships between techniques, material constraints, and fabrication decisions in the way experts actually organize that knowledge.",
+            },
+            {
+                title: "React Prototype & Trust Evaluation",
+                detail: "Built a React-based AI assistant constrained by the taxonomy, designed to help users generate their own ideas rather than just produce outputs. Tested it against a generic LLM using a Likert trust survey with the same 5 participants. Preliminary results showed higher trust ratings for the domain-specific system.",
+            },
         ],
         impact:
-            "Proved that domain-specific knowledge structures (ontologies) significantly improve output quality and trust in human-AI workflows. This established a repeatable framework for grounding these tools in actual expert knowledge.",
+            "Preliminary results pointed toward contextual grounding mattering more than raw model capability for specialist users — they trusted the tool that spoke their language over the one that just sounded confident. With only 5 participants this is a directional finding, not a definitive one, but it's a strong enough signal to warrant a larger follow-up study.",
     },
 ];
 
@@ -222,7 +259,7 @@ export default function UXPage() {
                     Case Studies
                 </h1>
                 <p className="text-lg md:text-xl text-white/60 max-w-xl font-light leading-relaxed">
-                    Technical UXR: I don't just find problems. I build the ontologies and prototypes needed to solve them.
+                    I find the problem, build the case for solving it, and ship the fix. Here's how that actually looks.
                 </p>
 
                 {/* Legend */}

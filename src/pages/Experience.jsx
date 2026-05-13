@@ -52,7 +52,7 @@ export default function Experience() {
 
     const experience = [
         { 
-            title: "AI Research & Full-Stack Developerr",
+            title: "AI Research & Full-Stack Developer",
             org: "Pearl Discovery (Non-profit)",
             location: "Remote",
             type: "Part-Time",
@@ -85,8 +85,8 @@ export default function Experience() {
             type: "Internship",
             date: "Jun. 2025 – Aug. 2025",
             bullets: [
-                "I realized the 'insight-to-code' gap was too slow, so I built a new workflow that used AI to prioritize features for 500+ users based on actual friction points.",
-                "Instead of static mockups, I built functional prototypes in real-time during interviews. This let users 'live-edit' the solution with me, building immediate confidence in the design before we even touched the main codebase.",
+                "Feature prioritization was driven by gut feel, not evidence. I ran a heuristic evaluation, cross-referenced the findings against months of historical survey data using VADER sentiment analysis, and then ran a MaxDiff survey with 500+ users to rank which friction points hurt the most. The result landed in front of the Director of Product and VP of Digital & Technology.",
+                "Instead of static mockups, I built functional Figma prototypes and tested them live during usability sessions — validating fixes with real users in the same cycle, no follow-up study needed.",
             ],
             skills: [
                 "Figma", 
@@ -102,13 +102,13 @@ export default function Experience() {
         },
         {
             title: "HCI Researcher (Human-AI Co-creativity)",
-            org: "Hybrd Atelier Lab — UT Arlington",
+            org: "Hybrid Atelier Lab — UT Arlington",
             location: "Arlington, TX",
             type: "Research Internship",
             date: "May 2024 – Aug. 2024",
             bullets: [
-                "I investigated how GenAI actually messes with (and helps) the creative process in 3D fabrication.",
-                "I spent my time figuring out if these tools are helping designers reach new heights or if they’re just forcing us to adapt our creativity to fit the machine's limitations."
+                "I investigated whether domain-specific AI actually performs better than a generic LLM for expert digital fabrication workflows — or if the difference is just in how much users trust it.",
+                "I ran physical card sorting exercises with 5 fab lab experts (physical cards, their lab, deliberate choice — these are hands-first people) to build a taxonomy of laser-cutting strategies. I encoded that taxonomy into a React AI assistant and ran a comparative trust study against a generic LLM. Preliminary results pointed to contextual grounding mattering more than raw capability.",
             ],
             skills: [
                 "React", 
