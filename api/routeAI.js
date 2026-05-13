@@ -2,8 +2,8 @@ import Anthropic from "@anthropic-ai/sdk";
 import { Redis } from "@upstash/redis";
 
 const redis = new Redis({
-    url: process.env.UPSTASH_REDIS_REST_URL,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN,
+    url: process.env.KV_REST_API_URL,
+    token: process.env.KV_REST_API_TOKEN,
 });
 import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
