@@ -1,188 +1,236 @@
-import { useState } from "react";
-import { ChevronDown, ChevronUp, Lightbulb, AlertCircle, Rocket, Database, Activity, Server, Workflow } from "lucide-react";
+import { useParams, useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 
-const SECTION_STYLES = {
-    problem:  { color: "text-rose-400",   border: "border-rose-400/20",   bg: "bg-rose-400/5",   label: "The Problem"   },
-    thinking: { color: "text-violet-400", border: "border-violet-400/20", bg: "bg-violet-400/5", label: "My Thinking"   },
-    plan:     { color: "text-sky-400",    border: "border-sky-400/20",    bg: "bg-sky-400/5",    label: "The Plan"      },
-    result:   { color: "text-emerald-400",border: "border-emerald-400/20",bg: "bg-emerald-400/5",label: "The Result"    },
-};
-
-const SECTION_ICONS = {
-    problem:  <AlertCircle size={16} />,
-    thinking: <Lightbulb size={16} />,
-    plan:     <Workflow size={16} />,
-    result:   <Rocket size={16} />,
-};
-
-function StackTag({ label }) {
+function Tag({ children }) {
     return (
-        <span className="px-4 py-1.5 text-xs font-medium border border-white/10 rounded-full bg-white/5 backdrop-blur-md text-white/70">
-            {label}
+        <span style={{
+            background: 'rgba(21,142,255,0.12)',
+            border: '1px solid rgba(21,142,255,0.25)',
+            color: '#158EFF',
+            fontSize: '11px',
+            fontWeight: 600,
+            padding: '3px 10px',
+            letterSpacing: '0.03em',
+        }}>
+            {children}
         </span>
     );
 }
 
-function ImpactStat({ value, label }) {
+function Stat({ value, label }) {
     return (
         <div className="flex flex-col gap-1">
-            <span className="text-3xl font-bold tracking-tight text-white/90">{value}</span>
-            <span className="text-xs font-semibold text-white/40 uppercase tracking-widest mt-1">{label}</span>
+            <span style={{ fontSize: 'clamp(2rem, 4vw, 2.75rem)', fontWeight: 800, color: '#158EFF', lineHeight: 1, letterSpacing: '-0.02em' }}>
+                {value}
+            </span>
+            <span style={{ fontSize: '11px', fontWeight: 600, color: 'rgba(255,255,255,0.45)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                {label}
+            </span>
         </div>
     );
 }
 
-function SectionBlock({ type, children }) {
-    const s = SECTION_STYLES[type];
+function StepGrid({ steps }) {
     return (
-        <div className={`flex flex-col gap-4 p-6 rounded-3xl border ${s.border} ${s.bg} shadow-lg backdrop-blur-sm`}>
-            <div className={`flex items-center gap-2 ${s.color} font-semibold text-xs uppercase tracking-widest`}>
-                {SECTION_ICONS[type]}
-                {s.label}
-            </div>
-            {children}
-        </div>
-    );
-}
-
-function StepList({ steps }) {
-    return (
-        <ol className="flex flex-col gap-3">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '16px' }}>
             {steps.map((step, i) => (
-                <li key={i} className="flex gap-3 items-start">
-                    <span className="mt-0.5 shrink-0 w-6 h-6 rounded-full bg-sky-400/10 border border-sky-400/20 text-sky-400 text-xs font-bold flex items-center justify-center">
-                        {i + 1}
-                    </span>
-                    <div className="flex flex-col gap-0.5">
-                        <span className="font-semibold text-base text-white/90">{step.title}</span>
-                        {step.detail && <span className="text-sm font-light text-white/60 leading-relaxed">{step.detail}</span>}
+                <div key={i} style={{ background: '#f8f7f4', border: '1px solid #e5e2dc', padding: '20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                        <span style={{
+                            width: '24px', height: '24px', borderRadius: '50%',
+                            background: '#158EFF', color: '#fff',
+                            fontSize: '11px', fontWeight: 700,
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            flexShrink: 0,
+                        }}>{i + 1}</span>
+                        <span style={{ fontWeight: 700, fontSize: '13px', color: '#111111' }}>{step.title}</span>
                     </div>
-                </li>
+                    {step.detail && (
+                        <p style={{ fontSize: '13px', color: '#555555', lineHeight: 1.65, margin: 0 }}>{step.detail}</p>
+                    )}
+                </div>
             ))}
-        </ol>
+        </div>
     );
 }
 
-function ProjectCard({ index, tag, title, tagline, stack, stats, problem, thinking, steps, result, icon, github }) {
-    const [open, setOpen] = useState(false);
-
+function Project({ tag, title, tagline, stack, stats, github, sections, onBack }) {
     return (
-        <div className="flex flex-col border border-white/10 shadow-2xl rounded-3xl bg-[#111111]/80 backdrop-blur-xl overflow-hidden transition-all duration-300 hover:border-white/20 group">
-
-            {/* Header row */}
-            <div className="flex flex-col gap-6 p-8 pb-6">
-                <div className="flex items-start justify-between gap-4 flex-wrap">
-                    <div className="flex flex-col gap-2">
-                        <div className="flex items-center gap-3">
-                            <span className="text-xs font-bold text-white/40 uppercase tracking-widest">
-                                System {String(index).padStart(2, "0")}
-                            </span>
-                            <span className="px-3 py-1 text-xs font-semibold border border-white/10 rounded-full bg-white/5 text-white/70">
-                                {tag}
-                            </span>
-                        </div>
-                        <h2 className="text-3xl font-bold tracking-tight text-white/90">{title}</h2>
-                        <p className="text-white/60 text-base max-w-xl font-light leading-relaxed">{tagline}</p>
-                    </div>
-                    <div className="flex flex-col items-end gap-4">
-                        <div className="text-white/20 group-hover:text-white/40 transition-colors shrink-0">{icon}</div>
+        <article>
+            {/* Hero banner */}
+            <div style={{ background: '#158EFF', padding: '64px 48px' }}>
+                <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                    <button
+                        onClick={onBack}
+                        style={{
+                            display: 'inline-flex', alignItems: 'center', gap: '6px',
+                            background: 'none', border: 'none', cursor: 'pointer',
+                            color: 'rgba(255,255,255,0.7)', fontSize: '12px', fontWeight: 600,
+                            letterSpacing: '0.05em', padding: 0, marginBottom: '8px',
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.color = '#ffffff'}
+                        onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}
+                    >
+                        <ArrowLeft size={13} /> All Projects
+                    </button>
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: 'rgba(255,255,255,0.6)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                            Software Engineering
+                        </span>
+                        <span style={{ color: 'rgba(255,255,255,0.35)' }}>·</span>
+                        <span style={{ fontSize: '11px', fontWeight: 700, color: 'rgba(255,255,255,0.6)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                            {tag}
+                        </span>
                         {github && (
-                            <a 
-                                href={github} 
-                                target="_blank" 
-                                rel="noreferrer" 
-                                className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-xs font-semibold text-white/80 hover:text-white transition-colors"
+                            <a
+                                href={github}
+                                target="_blank"
+                                rel="noreferrer"
+                                style={{
+                                    marginLeft: 'auto',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '6px',
+                                    fontSize: '12px',
+                                    fontWeight: 600,
+                                    color: 'rgba(255,255,255,0.85)',
+                                    textDecoration: 'none',
+                                    border: '1px solid rgba(255,255,255,0.35)',
+                                    padding: '5px 12px',
+                                    background: 'rgba(255,255,255,0.1)',
+                                }}
                             >
-                                <FaGithub size={14} />
-                                Source Code
+                                <FaGithub size={13} /> Source Code
                             </a>
                         )}
                     </div>
-                </div>
-
-                {/* Tech Stack tags */}
-                <div className="flex flex-col gap-2">
-                    <span className="text-xs font-bold text-white/30 uppercase tracking-widest">The Tech Stack</span>
-                    <div className="flex flex-wrap gap-2">
-                        {stack.map((s) => <StackTag key={s} label={s} />)}
+                    <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3.25rem)', fontWeight: 800, color: '#ffffff', lineHeight: 1.05, letterSpacing: '-0.02em', margin: 0 }}>
+                        {title}
+                    </h1>
+                    <p style={{ fontSize: '18px', color: 'rgba(255,255,255,0.8)', maxWidth: '600px', lineHeight: 1.6, margin: 0 }}>
+                        {tagline}
+                    </p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', paddingTop: '8px' }}>
+                        {stack.map(s => <Tag key={s}>{s}</Tag>)}
                     </div>
                 </div>
-
-                {/* Key Metrics */}
-                {stats.length > 0 && (
-                    <div className="flex gap-12 pt-6 mt-2 border-t border-white/10 flex-wrap">
-                        {stats.map((s) => <ImpactStat key={s.label} {...s} />)}
-                    </div>
-                )}
             </div>
 
-            {/* Expand toggle */}
-            <button
-                onClick={() => setOpen(!open)}
-                className="flex items-center justify-center gap-2 w-full py-4 border-t border-white/10 text-xs font-semibold text-white/50 uppercase tracking-widest hover:bg-white/5 hover:text-white transition-all"
-            >
-                {open ? <><ChevronUp size={16} /> Hide Architecture Details</> : <><ChevronDown size={16} /> Read Architecture Details</>}
-            </button>
-
-            {/* Full detail — expandable */}
-            {open && (
-                <div className="flex flex-col gap-6 p-8 pt-6 border-t border-white/10">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <SectionBlock type="problem">
-                            <p className="text-base text-white/70 font-light leading-relaxed">{problem}</p>
-                        </SectionBlock>
-
-                        <SectionBlock type="thinking">
-                            <p className="text-base text-white/70 font-light leading-relaxed">{thinking}</p>
-                        </SectionBlock>
+            {/* Stats bar */}
+            {stats.length > 0 && (
+                <div style={{ background: '#111111', padding: '32px 48px' }}>
+                    <div style={{ maxWidth: '960px', margin: '0 auto', display: 'flex', gap: '48px', flexWrap: 'wrap' }}>
+                        {stats.map(s => <Stat key={s.label} {...s} />)}
                     </div>
-
-                    <SectionBlock type="plan">
-                        <StepList steps={steps} />
-                    </SectionBlock>
-
-                    <SectionBlock type="result">
-                        <p className="text-base text-white/70 font-light leading-relaxed">{result}</p>
-                    </SectionBlock>
                 </div>
             )}
-        </div>
+
+            {/* Sections */}
+            <div>
+                {sections.map((section, i) => (
+                    <div
+                        key={i}
+                        style={{
+                            background: section.dark ? '#111111' : '#ffffff',
+                            borderBottom: '1px solid #e5e2dc',
+                        }}
+                    >
+                        <div style={{
+                            maxWidth: '960px',
+                            margin: '0 auto',
+                            padding: '56px 48px',
+                            display: 'flex',
+                            flexDirection: section.layout === 'split' ? 'row' : 'column',
+                            gap: '48px',
+                            alignItems: section.layout === 'split' ? 'flex-start' : undefined,
+                            flexWrap: 'wrap',
+                        }}>
+                            {section.layout === 'split' ? (
+                                <>
+                                    <div style={{ flex: '0 0 220px' }}>
+                                        <span style={{
+                                            fontSize: '11px', fontWeight: 700,
+                                            letterSpacing: '0.15em', textTransform: 'uppercase',
+                                            color: section.dark ? 'rgba(255,255,255,0.35)' : '#aaaaaa',
+                                        }}>
+                                            {section.label}
+                                        </span>
+                                    </div>
+                                    <div style={{ flex: 1, minWidth: '260px' }}>
+                                        <p style={{ fontSize: '16px', lineHeight: 1.8, color: section.dark ? 'rgba(255,255,255,0.75)' : '#333333', margin: 0 }}>
+                                            {section.content}
+                                        </p>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <span style={{
+                                        fontSize: '11px', fontWeight: 700,
+                                        letterSpacing: '0.15em', textTransform: 'uppercase',
+                                        color: section.dark ? 'rgba(255,255,255,0.35)' : '#aaaaaa',
+                                    }}>
+                                        {section.label}
+                                    </span>
+                                    {typeof section.content === 'string' ? (
+                                        <p style={{ fontSize: '16px', lineHeight: 1.8, color: section.dark ? 'rgba(255,255,255,0.75)' : '#333333', margin: 0, maxWidth: '680px' }}>
+                                            {section.content}
+                                        </p>
+                                    ) : section.content}
+                                </>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </article>
     );
 }
 
-const PROJECTS = [
-    {
-        index: 1,
+const PROJECTS = {
+    teachtrack: {
         tag: "Full-Stack · Data Integrity",
         title: "TeachTrack: Academic Analytics",
         tagline: "A learning management system built around strict data privacy and clear accreditation metrics.",
-        icon: <Database size={40} strokeWidth={1} />,
         github: "https://github.com/BobbyAl",
         stack: ["Supabase (Postgres)", "React", "Next.js", "TailwindCSS", "Node.js", "JWT", "Redis"],
         stats: [
             { value: "JWT", label: "Secure Auth" },
             { value: "FERPA", label: "Compliant" },
-            { value: "Redis", label: "Caching" },
+            { value: "Redis", label: "Caching Layer" },
         ],
-        problem:
-            "Most LMS platforms focus on student satisfaction instead of actual learning outcomes. This makes it really hard for departments to get the clean data they need for accreditation.",
-        thinking:
-            "We needed a way to keep data private for each professor, while automatically turning qualitative feedback into the quantitative metrics the university actually tracks.",
-        steps: [
-            { title: "Database Architecture", detail: "Built a relational schema in Postgres to map raw feedback directly to specific Student Learning Outcomes (SLOs)." },
-            { title: "Security First", detail: "Set up a JWT-based invite system so all student data stays private and FERPA-compliant." },
-            { title: "Scalability", detail: "Added Redis for caching and set up load balancing so the system wouldn't crash during the end-of-semester evaluation rush." },
+        sections: [
+            {
+                label: "The Problem",
+                layout: "split",
+                content: "Most LMS platforms focus on student satisfaction instead of actual learning outcomes. This makes it hard for departments to get clean data they need for accreditation.",
+            },
+            {
+                label: "My Thinking",
+                layout: "split",
+                dark: true,
+                content: "The core challenge was keeping data private per professor while automatically converting qualitative feedback into the quantitative metrics universities actually track for accreditation.",
+            },
+            {
+                label: "How It Was Built",
+                layout: "full",
+                content: <StepGrid steps={[
+                    { title: "Database Architecture", detail: "Built a relational schema in Postgres to map raw feedback directly to specific Student Learning Outcomes (SLOs)." },
+                    { title: "Security First", detail: "Set up a JWT-based invite system so all student data stays private and FERPA-compliant by design." },
+                    { title: "Scalability", detail: "Added Redis caching and load balancing so the system handles the end-of-semester evaluation rush without degrading." },
+                ]} />,
+            },
+            {
+                label: "The Result",
+                layout: "split",
+                content: "Shipped a platform that gives coordinators real-time, outcome-focused metrics across their entire departments — replacing manual spreadsheet audits.",
+            },
         ],
-        result:
-            "Shipped a platform that gives coordinators real-time, outcome-focused metrics across their entire departments.",
     },
-    {
-        index: 2,
+    smartdash: {
         tag: "Cloud Architecture · IoT",
         title: "SmartDash: Event-Driven IoT",
         tagline: "A cloud-native pipeline built to process high-frequency hardware telemetry for predictive maintenance.",
-        icon: <Activity size={40} strokeWidth={1} />,
         github: null,
         stack: ["Google Cloud Platform", "Pub/Sub", "Cloud Functions", "BigQuery", "Firestore", "Python"],
         stats: [
@@ -190,75 +238,88 @@ const PROJECTS = [
             { value: "1000s", label: "Device Streams" },
             { value: "Serverless", label: "Infrastructure" },
         ],
-        problem:
-            "Facility managers usually react to equipment failures after they happen, which leads to expensive downtime and a lot of manual logging.",
-        thinking:
-            "I wanted to build a 'fire-and-forget' pipeline that could handle fast telemetry (1Hz) and store it so we could eventually predict failures before they happen.",
-        steps: [
-            { title: "Pipeline Construction", detail: "Built a serverless pipeline with GCP Pub/Sub to ingest 1Hz telemetry from simulated hardware." },
-            { title: "Data Storage", detail: "Pushed real-time state to Firestore for a live dashboard, and stored historical logs in BigQuery for trend analysis." },
-            { title: "Future Autonomy", detail: "Designed the system so it could eventually move from basic alerts to an autonomous 'reasoning layer' that predicts failures using historical logs." },
+        sections: [
+            {
+                label: "The Problem",
+                layout: "split",
+                content: "Facility managers typically react to equipment failures after they happen — expensive downtime, manual logging, no way to get ahead of it.",
+            },
+            {
+                label: "My Thinking",
+                layout: "split",
+                dark: true,
+                content: "I wanted a fire-and-forget pipeline that could handle fast telemetry at 1Hz and store it in a way that would support failure prediction down the line — not just alerting.",
+            },
+            {
+                label: "How It Was Built",
+                layout: "full",
+                content: <StepGrid steps={[
+                    { title: "Pipeline Construction", detail: "Built a serverless pipeline with GCP Pub/Sub to ingest 1Hz telemetry from simulated hardware devices." },
+                    { title: "Dual Storage Strategy", detail: "Pushed real-time state to Firestore for a live dashboard, and stored historical logs in BigQuery for trend analysis." },
+                    { title: "Designed for Autonomy", detail: "Structured the system so it can eventually move from basic threshold alerts to a reasoning layer that predicts failures from historical patterns." },
+                ]} />,
+            },
+            {
+                label: "The Result",
+                layout: "split",
+                content: "Built a scalable cloud-native system capable of handling thousands of concurrent device streams — a foundation for predictive maintenance rather than reactive response.",
+            },
         ],
-        result:
-            "Successfully built a scalable, cloud-native system that can handle thousands of device streams at once.",
     },
-    {
-        index: 3,
+    taskflow: {
         tag: "Algorithms · iOS/Web",
         title: "TaskFlow: Datacenter Engine",
-        tagline: "Pathfinding algorithms and an AR interface built to speed up technician response times in massive 400MW facilities.",
-        icon: <Server size={40} strokeWidth={1} />,
+        tagline: "Pathfinding algorithms and an AR interface built to speed up technician response times in 400MW facilities.",
         github: "https://github.com/BobbyAl",
         stack: ["React", "Python", "Swift (ARKit)", "A* Algorithm", "BFS Algorithm"],
         stats: [
-            { value: "1st Place", label: "HackUTD" },
-            { value: "A* & BFS", label: "Path Routing" },
+            { value: "1st", label: "Place at HackUTD" },
+            { value: "A* + BFS", label: "Path Routing" },
             { value: "ARKit", label: "Hardware Scanning" },
         ],
-        problem:
-            "Technicians in giant 400MW datacenters lose a ton of time manually prioritizing work orders and navigating complex server clusters.",
-        thinking:
-            "This wasn't just a UI problem, it was an optimization problem. I needed to combine search algorithms with a mobile app to actually speed up on-site response times.",
-        steps: [
-            { title: "The Engine", detail: "Wrote a routing engine using A* and BFS to calculate the fastest path through the facility based on ticket priority." },
-            { title: "The Interface", detail: "Built a web dashboard for management and an iOS AR app that lets technicians scan a server rack to instantly find the broken hardware." },
+        sections: [
+            {
+                label: "The Problem",
+                layout: "split",
+                content: "Technicians in 400MW datacenters lose significant time manually prioritizing work orders and navigating complex server clusters — no tooling, just memory and paper.",
+            },
+            {
+                label: "My Thinking",
+                layout: "split",
+                dark: true,
+                content: "This wasn't just a UI problem — it was an optimization problem. The only way to actually reduce response time was to combine search algorithms with a mobile interface built for how technicians move through a facility.",
+            },
+            {
+                label: "How It Was Built",
+                layout: "full",
+                content: <StepGrid steps={[
+                    { title: "Routing Engine", detail: "Wrote a routing engine using A* and BFS to calculate the fastest path through the facility based on ticket priority and physical layout." },
+                    { title: "Web Dashboard", detail: "Built a management-facing web dashboard for dispatching and monitoring active tickets across the floor." },
+                    { title: "iOS AR Interface", detail: "Built an iOS AR app using ARKit that lets technicians scan a server rack to instantly identify the failed hardware." },
+                ]} />,
+            },
+            {
+                label: "The Result",
+                layout: "split",
+                content: "Won 1st place at HackUTD by proving the system significantly reduced technician response times and manual errors against a panel of Fortune 500 judges.",
+            },
         ],
-        result:
-            "Won 1st place at HackUTD by proving the system significantly reduced technician response times and manual errors.",
     },
-];
+};
 
 export default function DevPage() {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const proj = PROJECTS[id];
+
+    if (!proj) {
+        navigate("/dev");
+        return null;
+    }
+
     return (
-        <div className="flex flex-col w-full max-w-6xl mx-auto px-6 py-32 gap-20">
-
-            {/* Page header */}
-            <div className="flex flex-col gap-4">
-                <span className="text-xs font-bold text-white/40 uppercase tracking-widest">Software Engineering Portfolio</span>
-                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight max-w-2xl">
-                    Systems that Scale
-                </h1>
-                <p className="text-lg md:text-xl text-white/60 max-w-xl font-light leading-relaxed">
-                    Building high-frequency data pipelines, secure cloud architecture, and algorithms that solve real-world problems.
-                </p>
-
-                {/* Legend */}
-                <div className="flex gap-4 flex-wrap pt-2">
-                    {Object.entries(SECTION_STYLES).map(([key, s]) => (
-                        <div key={key} className={`flex items-center gap-1.5 text-xs font-medium ${s.color}`}>
-                            {SECTION_ICONS[key]}
-                            <span>{s.label}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* Projects */}
-            <div className="flex flex-col gap-6">
-                {PROJECTS.map((proj) => (
-                    <ProjectCard key={proj.index} {...proj} />
-                ))}
-            </div>
+        <div style={{ paddingTop: '88px' }}>
+            <Project {...proj} onBack={() => navigate("/dev")} />
         </div>
     );
 }

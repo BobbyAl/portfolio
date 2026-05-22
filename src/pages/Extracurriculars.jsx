@@ -55,57 +55,85 @@ export default function Extracurriculars() {
     const tab = tabs.find(t => t.id === active);
 
     return (
-        <div className="flex flex-col w-full gap-12 py-20 md:py-32 max-w-7xl mx-auto">
-            {/* Header */}
-            <div className="px-4 md:px-[5vw]">
-                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white">Extracurriculars</h1>
-            </div>
+        <div
+            className="flex flex-col w-full py-24"
+            style={{ borderTop: '1px solid #e5e2dc' }}
+        >
+            <div className="flex flex-col w-full max-w-6xl mx-auto gap-12 px-6 md:px-12">
 
-            {/* Tabs */}
-            <div className="flex flex-wrap gap-3 px-4 md:px-[5vw]">
-                {tabs.map((t) => (
-                    <button
-                        key={t.id}
-                        onClick={() => setActive(t.id)}
-                        className={`px-6 py-2.5 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 border cursor-pointer
-                            ${active === t.id
-                                ? "bg-white text-black border-white shadow-lg"
-                                : "bg-white/5 text-white/60 border-white/10 hover:border-white/30 hover:bg-white/10 hover:text-white"
-                            }`}
-                    >
-                        {t.label}
-                    </button>
-                ))}
-            </div>
-
-            {/* Info block */}
-            <AnimatePresence mode="wait">
-                <motion.div
-                    key={active + "-info"}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.25, ease: "easeOut", delay: 0.05 }}
-                    className="flex flex-col gap-6 px-4 md:px-[5vw]"
-                >
-                    <div className="flex flex-col gap-2">
-                        <div className="flex items-center gap-4 flex-wrap">
-                            <span className="text-3xl font-bold text-white/90">{tab.role}</span>
-                            <span className="text-xs font-semibold text-white/40 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-full">{tab.dates}</span>
-                        </div>
-                        <span className="text-sm font-medium text-white/60 uppercase tracking-widest">{tab.label}</span>
+                {/* Section label */}
+                <div className="flex flex-col gap-4">
+                    <div className="flex items-center gap-4">
+                        <div style={{ width: '32px', height: '3px', background: '#158EFF', flexShrink: 0 }} />
+                        <span className="text-sm font-semibold uppercase tracking-[0.15em]" style={{ color: '#158EFF' }}>
+                            Extracurriculars
+                        </span>
                     </div>
+                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight" style={{ color: '#111111' }}>
+                        Outside the classroom
+                    </h2>
+                </div>
 
-                    <ul className="flex flex-col gap-3 max-w-3xl">
-                        {tab.bullets.map((b, i) => (
-                            <li key={i} className="flex items-start gap-3">
-                                <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-white/40 shrink-0" />
-                                <span className="text-base text-white/70 leading-relaxed font-light">{b}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </motion.div>
-            </AnimatePresence>
+                {/* Tabs */}
+                <div className="flex flex-wrap gap-2">
+                    {tabs.map((t) => (
+                        <button
+                            key={t.id}
+                            onClick={() => setActive(t.id)}
+                            className="px-5 py-2 text-sm font-semibold tracking-wide transition-all duration-200 cursor-pointer"
+                            style={{
+                                background: active === t.id ? '#158EFF' : 'transparent',
+                                color: active === t.id ? '#ffffff' : '#888888',
+                                border: `1px solid ${active === t.id ? '#158EFF' : '#dddddd'}`,
+                            }}
+                        >
+                            {t.label}
+                        </button>
+                    ))}
+                </div>
+
+                {/* Content */}
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={active}
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="flex flex-col gap-6"
+                    >
+                        <div className="flex flex-col gap-1.5">
+                            <div className="flex items-center gap-4 flex-wrap">
+                                <span className="text-2xl md:text-3xl font-bold" style={{ color: '#111111' }}>
+                                    {tab.role}
+                                </span>
+                                <span
+                                    className="text-xs font-semibold uppercase tracking-widest px-3 py-1"
+                                    style={{ background: '#f0f4ff', color: '#158EFF', border: '1px solid #c8dbff' }}
+                                >
+                                    {tab.dates}
+                                </span>
+                            </div>
+                            <span className="text-sm font-medium uppercase tracking-widest" style={{ color: '#999999' }}>
+                                {tab.label}
+                            </span>
+                        </div>
+
+                        <ul className="flex flex-col gap-3 max-w-2xl">
+                            {tab.bullets.map((b, i) => (
+                                <li key={i} className="flex items-start gap-3">
+                                    <span
+                                        className="mt-2 shrink-0"
+                                        style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#158EFF', flexShrink: 0 }}
+                                    />
+                                    <span className="text-base leading-relaxed" style={{ color: '#444444' }}>{b}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </motion.div>
+                </AnimatePresence>
+
+            </div>
         </div>
     );
 }

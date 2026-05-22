@@ -9,7 +9,7 @@ import {
 const icons = [
     { icon: FaReact,        label: "React" },
     { icon: SiTailwindcss,  label: "Tailwind" },
-    { icon: SiNextdotjs,    label: "Next" },
+    { icon: SiNextdotjs,    label: "Next.js" },
     { icon: SiSupabase,     label: "Supabase" },
     { icon: SiPostgresql,   label: "PostgreSQL" },
     { icon: FaFigma,        label: "Figma" },
@@ -20,17 +20,18 @@ const icons = [
     { icon: SiSurveymonkey, label: "SurveyMonkey" },
 ];
 
-function IconPill({ icon: Icon }) {
+function IconPill({ icon: Icon, label }) {
     return (
-        <div className="mx-4 md:mx-5 w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center">
-            <Icon size={28} />
+        <div className="mx-5 flex items-center gap-2" style={{ color: '#888888' }}>
+            <Icon size={18} />
+            <span style={{ fontSize: '12px', fontWeight: 500, whiteSpace: 'nowrap' }}>{label}</span>
         </div>
     );
 }
 
 export default function Marquee() {
     return (
-        <div className="w-full overflow-hidden py-6">
+        <div className="w-full overflow-hidden py-4" style={{ borderTop: '1px solid #e5e2dc', borderBottom: '1px solid #e5e2dc' }}>
             <div className="flex w-max animate-marquee">
                 {[...icons, ...icons].map((item, i) => (
                     <div
@@ -40,7 +41,7 @@ export default function Marquee() {
                             animationDelay: `${(i % icons.length) * 0.2}s`,
                         }}
                     >
-                        <IconPill icon={item.icon} />
+                        <IconPill icon={item.icon} label={item.label} />
                     </div>
                 ))}
             </div>
